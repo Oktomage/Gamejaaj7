@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    //Vars
+    [Header("Main")]
+    public PlayerBody Body;
+
+    [Header("Vars")]
     public float speed;
 
     //Conditions
@@ -26,10 +29,20 @@ public class PlayerMovement : MonoBehaviour
     }
     
     void Move(){
-        rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * speed;
+        //Walk
+        if(Body.CanWalk)
+        {
+            rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * speed;
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, 0);
+        }
+
+        #region Tests
 
         //Is walking ?
-        if(rb.velocity.x != 0 || rb.velocity.y != 0)
+        if (rb.velocity.x != 0 || rb.velocity.y != 0)
         {
             isWalking = true;
 
@@ -43,9 +56,11 @@ public class PlayerMovement : MonoBehaviour
         {
             isWalking = false;
         }
+
+        #endregion
     }
 
-    void Flip(){
+    private void Flip(){
         if(rb.velocity.x > 0)
         {
             spriteRend.flipX = false;

@@ -18,6 +18,8 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
+    #region Interactions with inventory
+
     public void TryGetAnyItem(float searchRadius)
     {
         //Get all items in world
@@ -51,4 +53,6 @@ public class PlayerActions : MonoBehaviour
             }
         }
     }
+
+    #endregion
 }

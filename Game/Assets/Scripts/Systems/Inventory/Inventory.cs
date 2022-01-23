@@ -13,6 +13,7 @@ public class Inventory : MonoBehaviour
     internal int InventorySize;
     internal int InventoryAmmount;
 
+    [Header("Conditions")]
     public bool Inventory_full;
 
     private void Start()
