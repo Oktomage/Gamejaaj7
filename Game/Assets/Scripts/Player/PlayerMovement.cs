@@ -4,49 +4,55 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    //public Animator mainAnimator;
-    public Rigidbody2D rb;
-    float input_x = 0;
-    float input_y = 0;
+    //Vars
     public float speed;
-    private bool isWalking;
-    private bool movingRight;
-    // Start is called before the first frame update
+
+    //Conditions
+    internal bool isWalking;
+    internal bool movingRight;
+
+    [Header("Components")]
+    public Rigidbody2D rb;
+    public SpriteRenderer spriteRend;
+
     void Start()
     {
         isWalking = false;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         Move();
-
     }
     
     void Move(){
-        input_x = Input.GetAxisRaw("Horizontal");
-        input_y = Input.GetAxisRaw("Vertical");
-        isWalking = (input_x != 0 || input_y != 0);
+        rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * speed;
 
-        if(isWalking){
-            var move = new Vector2(input_x, input_y) * speed;
-            rb.velocity = move;
+        //Is walking ?
+        if(rb.velocity.x != 0 || rb.velocity.y != 0)
+        {
+            isWalking = true;
 
-        }else{
-            rb.velocity = new Vector2(0,0);
+            //Flip
+            if(rb.velocity.x != 0)
+            {
+                Flip();
+            }
         }
-        if(input_x < 0 && !movingRight){
-			Flip();
-		}else if(input_x > 0 && movingRight){
-			Flip();
-		}
-
+        else
+        {
+            isWalking = false;
+        }
     }
 
     void Flip(){
-        //Moving right serve para manter o movimento constante, sem ele o personagem fica virando furiosamente
-        movingRight = !movingRight;
-        transform.localScale = new Vector3((transform.localScale.x * -1), transform.localScale.y, transform.localScale.z);
+        if(rb.velocity.x > 0)
+        {
+            spriteRend.flipX = false;
+        }
+        else
+        {
+            spriteRend.flipX = true;
+        }
     }
 }

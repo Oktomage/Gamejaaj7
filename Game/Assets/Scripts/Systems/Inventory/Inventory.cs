@@ -10,13 +10,16 @@ public class Inventory : MonoBehaviour
     internal List<Sprite> Itens = new List<Sprite>();
     internal int index;
 
+    internal int InventorySize;
+
     //Booleanos que informam que itens o jogador possui (Temporarios)
     private bool hasBanana;
     private bool hasSaco;
 
-
     private void Start()
     {
+        InventorySize = 3;
+
         //Clean inventory
         Itens.Clear();
     }
