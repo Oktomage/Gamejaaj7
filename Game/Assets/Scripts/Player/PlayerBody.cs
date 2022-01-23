@@ -4,17 +4,11 @@ using UnityEngine;
 
 public class PlayerBody : MonoBehaviour
 {
+    public GameObject Backpack;
+
     [Header("Depedencies")]
     public PlayerMovement PlayerMove;
     public PlayerActions PlayerAct;
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
+    public Inventory Inv;
 }

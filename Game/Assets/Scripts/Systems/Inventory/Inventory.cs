@@ -7,14 +7,13 @@ public class Inventory : MonoBehaviour
 {
     [Header("Items")]
     [SerializeField]
-    internal List<Sprite> Itens = new List<Sprite>();
+    internal List<Item> Itens = new List<Item>();
     internal int index;
 
     internal int InventorySize;
+    internal int InventoryAmmount;
 
-    //Booleanos que informam que itens o jogador possui (Temporarios)
-    private bool hasBanana;
-    private bool hasSaco;
+    public bool Inventory_full;
 
     private void Start()
     {
@@ -27,26 +26,34 @@ public class Inventory : MonoBehaviour
     void Update()
     {
         InvMove();
-        //Debug.Log(index);
+    }
 
-        //Get item sprite
-        if(Itens.Count > 0)
+    private void FixedUpdate()
+    {
+        //Get ammount of items in inventory
+        InventoryAmmount = Itens.Count;
+
+        if(InventoryAmmount < InventorySize)
         {
-            gameObject.GetComponent<Image>().sprite = Itens[index];
+            Inventory_full = false;
+        }
+        else
+        {
+            Inventory_full = true;
         }
     }
 
     //Sistema de get sets [Muito util em listas]
-    #region Sets
+    #region Get // Sets
 
-    public void AddItem(Sprite item)
+    public void AddItem(Item itm)
     {
-        Itens.Add(item);
+        Itens.Add(itm);
     }
 
-    public void RemoveItem(Sprite item)
+    public void RemoveItem(Item itm)
     {
-        Itens.Remove(item);
+        Itens.Remove(itm);
     }
 
     #endregion
